@@ -24,7 +24,7 @@ The goal of this software is to enable the advantages of a finite state machine 
 
 The software is available with the src directory here as JavaScript code already transpiled from the XState/fsm typescript source.   The src files are structures as an Esprunio formatted module.  
 
-(** todo - details of using in a module **)
+(**todo - details of using in a module**)
 
 ## References
 
