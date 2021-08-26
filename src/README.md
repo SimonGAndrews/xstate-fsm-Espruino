@@ -9,6 +9,7 @@ with modifications necessary to run it as a module within the Espruino JavaScrip
 
 The initial forked version is @xstate/fsm@1.6.1
 <https://github.com/statelyai/xstate/releases/tag/%40xstate%2Ffsm%401.6.1>
+The original TypeScript files index.ts and types.ts are here as transpiled js , taken from the NPM install of @xstate/fsm.
 
 ## Modifications
 
@@ -16,4 +17,6 @@ Modifications have been applied to the initial version to enable it to execute i
 See <https://www.espruino.com/Features>
 hence the need to modify.  
 
-The modifications are tracked as Github Issues and subsequent pull requests within this repository.
+The modifications are tracked as Github Issues and commits within this repository.
+
+As per Issue #1 the resulting Esprunio module containing xstate/fsm is within xstate-fsm.js
