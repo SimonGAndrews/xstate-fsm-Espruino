@@ -14,7 +14,7 @@ for a list of supported features of the Xstate/fsm.
 
 The goal of this software is to enable the advantages of a finite state machine approach to be demonstrated for the programming of Internet of Things (IOT) microcontrollers.  In a way that:
 
-* Enables JavaScript as a mid-level scripting environment for the programming of IOT devices.
+* Supports JavaScript as a mid-level scripting environment for the programming of IOT devices.
 * Enables the existing diverse Esprunio module device library of sensors, actuators and other interface components to be incorporated into IOT devices driven by a FSM.
 * Builds on resources available within the established open source communities of both XState and Esprunio.
 * Optimises the overall system capabilities within the constraints of low-spec microcontroller devices available for IOT.  
