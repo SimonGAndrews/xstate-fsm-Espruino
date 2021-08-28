@@ -1,4 +1,5 @@
-import { InterpreterStatus } from './types';
+// import { InterpreterStatus } from './types';
+const { InterpreterStatus } = require('./types');
 export { InterpreterStatus };
 const INIT_EVENT = { type: 'xstate.init' };
 const ASSIGN_ACTION = 'xstate.assign';

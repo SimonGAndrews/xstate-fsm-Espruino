@@ -1,0 +1,24 @@
+{
+  "name": "xstate-fsm",
+  "version": "1.0.0",
+  "description": "fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the Espruino JavaScript Interpreter for Microcontrollers",
+  "main": "xstate-fsm.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonGAndrews/xstate-fsm-Espruino.git"
+  },
+  "keywords": [
+    "FSM",
+    "Esprunio",
+    "XState"
+  ],
+  "author": "SimonGAndrews",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SimonGAndrews/xstate-fsm-Espruino/issues"
+  },
+  "homepage": "https://github.com/SimonGAndrews/xstate-fsm-Espruino#readme"
+}
