@@ -81,7 +81,8 @@ function handleActions(actions, context, eventObject) {
     return [nonAssignActions, nextContext, assigned];
 }
 // export function createMachine(fsmConfig, options = {}) {
-exports.createMachine = function createMachine(fsmConfig, options = {}) {
+exports.createMachine = function createMachine(fsmConfig, options) {
+    options = (typeof options !== 'undefined') ? options : {};
     if (!IS_PRODUCTION) {
         Object.keys(fsmConfig.states).forEach((state) => {
             if (fsmConfig.states[state].states) {
@@ -90,7 +91,11 @@ exports.createMachine = function createMachine(fsmConfig, options = {}) {
             }
         });
     }
-    const [initialActions, initialContext] = handleActions(toArray(fsmConfig.states[fsmConfig.initial].entry).map((action) => toActionObject(action, options.actions)), fsmConfig.context, INIT_EVENT);
+ // const [initialActions, initialContext] = handleActions(toArray(fsmConfig.states[fsmConfig.initial].entry).map((action) => toActionObject(action, options.actions)), fsmConfig.context, INIT_EVENT);
+    const initialProps = handleActions(toArray(fsmConfig.states[fsmConfig.initial].entry).map((action) => toActionObject(action, options.actions)), fsmConfig.context, INIT_EVENT);
+    const initialActions = initialProps[0];
+    const initialContext = initialProps[1];
+    
     const machine = {
         config: fsmConfig,
         _options: options,
