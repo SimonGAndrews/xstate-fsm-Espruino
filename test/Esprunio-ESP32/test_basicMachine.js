@@ -11,7 +11,7 @@ const toggleMachine = createMachine({
 
 console.log(toggleMachine);
 
-const { initialState } = toggleMachine;
+const initialState  = toggleMachine.initialState;
 
 const toggledState = toggleMachine.transition(initialState, 'TOGGLE');
 toggledState.value;
