@@ -107,9 +107,12 @@ exports.createMachine = function createMachine(fsmConfig, options) {
         },
         transition: (state, event) => {
             var _a, _b;
-            const { value, context } = typeof state === 'string'
+          //  const { value, context } = typeof state === 'string'
+            var _obj = typeof state === 'string'
                 ? { value: state, context: fsmConfig.context }
                 : state;
+                value = _obj.value;
+                context = _obj.context;
             const eventObject = toEventObject(event);
             const stateConfig = fsmConfig.states[value];
             if (!IS_PRODUCTION && !stateConfig) {
@@ -121,12 +124,21 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                     if (transition === undefined) {
                         return createUnchangedState(value, context);
                     }
-                    const { target, actions = [], cond = () => true } = typeof transition === 'string'
-                        ? { target: transition }
-                        : transition;
+                 
+                    // const { target, actions = [], cond = () => true } = typeof transition === 'string'   
+                    var _ref = typeof transition === 'string' ? { target: transition } : transition,
+                    target = _ref.target,
+                    _ref$actions = _ref.actions,
+                    actions = _ref$actions === undefined ? [] : _ref$actions,
+                    _ref$cond = _ref.cond,
+                    cond = _ref$cond === undefined ? function () {
+                        return true;
+                        } : _ref$cond;
+
                     const isTargetless = target === undefined;
                     const nextStateValue = target !== null && target !== void 0 ? target : value;
                     const nextStateConfig = fsmConfig.states[nextStateValue];
+
                     if (!IS_PRODUCTION && !nextStateConfig) {
                         throw new Error(`State '${nextStateValue}' not found on machine ${(_b = fsmConfig.id) !== null && _b !== void 0 ? _b : ''}`);
                     }
@@ -136,7 +148,13 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                             : []
                                 .concat(stateConfig.exit, actions, nextStateConfig.entry)
                                 .filter((a) => a)).map((action) => toActionObject(action, machine._options.actions));
-                        const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
+                        
+                        //const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
+                        var _handleActions = handleActions(allActions, context, eventObject).slice(0,2);
+                        nonAssignActions = _handleActions[0],
+                        nextContext = _handleActions[1],
+                        assigned = _handleActions[2];        
+
                         const resolvedTarget = target !== null && target !== void 0 ? target : value;
                         return {
                             value: resolvedTarget,
