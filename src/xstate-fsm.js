@@ -177,7 +177,8 @@ const executeStateActions = (state, event) => state.actions.forEach(({ exec }) =
 exports.interpret = function interpret(machine) {
     let state = machine.initialState;
     let status = InterpreterStatus.NotStarted;
-    const listeners = new Set();
+   // const listeners = new Set();
+   listeners = {};
     const service = {
         _machine: machine,
         send: (event) => {
@@ -186,13 +187,19 @@ exports.interpret = function interpret(machine) {
             }
             state = machine.transition(state, event);
             executeStateActions(state, toEventObject(event));
-            listeners.forEach((listener) => listener(state));
+        //  listeners.forEach((listener) => listener(state));
+            const keys = Object.keys(listeners);
+            for (const key of keys)  {
+                listeners[key](state);
+            };
         },
         subscribe: (listener) => {
-            listeners.add(listener);
+        // listeners.add(listener);
+            listeners[listener] = listener
             listener(state);
             return {
-                unsubscribe: () => listeners.delete(listener)
+               // unsubscribe: () => listeners.delete(listener)
+               unsubscribe: () => delete listeners(listener)
             };
         },
         start: (initialState) => {
@@ -218,7 +225,8 @@ exports.interpret = function interpret(machine) {
         },
         stop: () => {
             status = InterpreterStatus.Stopped;
-            listeners.clear();
+            // listeners.clear();
+            listeners = {};
             return service;
         },
         get state() {
