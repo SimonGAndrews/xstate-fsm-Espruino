@@ -18,7 +18,7 @@ function toArray(item) {
 exports.assign = function assign(assignment) {
     return {
         type: ASSIGN_ACTION,
-        assignment
+        assignment: assignment
     };
 }
 function toActionObject(
@@ -150,7 +150,7 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                                 .filter((a) => a)).map((action) => toActionObject(action, machine._options.actions));
                         
                         //const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
-                        var _handleActions = handleActions(allActions, context, eventObject).slice(0,2);
+                        var _handleActions = handleActions(allActions, context, eventObject).slice(0,3);
                         nonAssignActions = _handleActions[0],
                         nextContext = _handleActions[1],
                         assigned = _handleActions[2];        
@@ -172,13 +172,18 @@ exports.createMachine = function createMachine(fsmConfig, options) {
     };
     return machine;
 }
-const executeStateActions = (state, event) => state.actions.forEach(({ exec }) => exec && exec(state.context, event));
+// const executeStateActions = (state, event) => state.actions.forEach(({ exec }) => exec && exec(state.context, event));
+   const executeStateActions = (state, event) => {
+      state.actions.forEach(( exec ) => {
+          exec && Object.assign({},exec).exec(state.context, event);   
+    });
+   };
 // export function interpret(machine) {
 exports.interpret = function interpret(machine) {
     let state = machine.initialState;
     let status = InterpreterStatus.NotStarted;
-   // const listeners = new Set();
-   listeners = {};
+    // const listeners = new Set();
+    listeners = {};
     const service = {
         _machine: machine,
         send: (event) => {
