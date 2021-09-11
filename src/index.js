@@ -1,12 +1,14 @@
 // import { InterpreterStatus } from './types';
 const { InterpreterStatus } = require('./types');
-export { InterpreterStatus };
+// export { InterpreterStatus };
+exports.InterpreterStatus =  { InterpreterStatus };
 const INIT_EVENT = { type: 'xstate.init' };
 const ASSIGN_ACTION = 'xstate.assign';
 function toArray(item) {
     return item === undefined ? [] : [].concat(item);
 }
-export function assign(assignment) {
+// export function assign(assignment) {
+exports.assign = function assign(assignment) {
     return {
         type: ASSIGN_ACTION,
         assignment
@@ -71,7 +73,8 @@ function handleActions(actions, context, eventObject) {
     });
     return [nonAssignActions, nextContext, assigned];
 }
-export function createMachine(fsmConfig, options = {}) {
+// export function createMachine(fsmConfig, options = {}) {
+    exports.createMachine =  function createMachine(fsmConfig, options = {}) {
     if (!IS_PRODUCTION) {
         Object.keys(fsmConfig.states).forEach((state) => {
             if (fsmConfig.states[state].states) {
@@ -140,7 +143,8 @@ export function createMachine(fsmConfig, options = {}) {
     return machine;
 }
 const executeStateActions = (state, event) => state.actions.forEach(({ exec }) => exec && exec(state.context, event));
-export function interpret(machine) {
+// export function interpret(machine) {
+    exports.interpret = function interpret(machine) {
     let state = machine.initialState;
     let status = InterpreterStatus.NotStarted;
     const listeners = new Set();

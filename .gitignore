@@ -1,7 +1,5 @@
 node_modules/
 babel/
-.babelrc
-babel.config.json
-package-lock.json
+viz/
 package.json
-convert*.js
+package-lock.json
