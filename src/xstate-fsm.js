@@ -16,7 +16,7 @@ function toArray(item) {
 }
 // export function assign(assignment) {
 exports.assign = function assign(assignment) {
-     return {
+    return {
         type: ASSIGN_ACTION,
         assignment: assignment
     };
@@ -115,7 +115,7 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                 : state;
                 value = _obj.value;
                 context = _obj.context;
-                const eventObject = toEventObject(event);
+            const eventObject = toEventObject(event);
             const stateConfig = fsmConfig.states[value];
             if (!IS_PRODUCTION && !stateConfig) {
                 throw new Error(`State '${value}' not found on machine ${(_a = fsmConfig.id) !== null && _a !== void 0 ? _a : ''}`);
@@ -141,18 +141,18 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                         throw new Error(`State '${nextStateValue}' not found on machine ${(_b = fsmConfig.id) !== null && _b !== void 0 ? _b : ''}`);
                     }
                     if (cond(context, eventObject)) {
-                        const allActions = (isTargetless
+                         const allActions = (isTargetless
                             ? toArray(actions)
                             : []
-                                .concat(stateConfig.exit, actions, nextStateConfig.entry)
+                                .concat(stateConfig.exit? stateConfig.exit : [], actions? actions:[], nextStateConfig.entry?nextStateConfig.entry:[])
                                 .filter((a) => a)).map((action) => toActionObject(action, machine._options.actions));
-
-                        //const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
+                        
+                         //const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
                         var _handleActions = handleActions(allActions, context, eventObject).slice(0,3);
                         nonAssignActions = _handleActions[0],
                         nextContext = _handleActions[1],
                         assigned = _handleActions[2];   
-                        
+
                         const resolvedTarget = target !== null && target !== void 0 ? target : value;
                         return {
                             value: resolvedTarget,
@@ -172,10 +172,10 @@ exports.createMachine = function createMachine(fsmConfig, options) {
 }
 // const executeStateActions = (state, event) => state.actions.forEach(({ exec }) => exec && exec(state.context, event));
    const executeStateActions = (state, event) => {
-        state.actions.forEach(( exec ) => {
+       state.actions.forEach(( exec ) => {
            exec && Object.assign({},exec).exec(state.context, event);   
     });
-       };
+    };
 // export function interpret(machine) {
 exports.interpret = function interpret(machine) {
     let state = machine.initialState;
