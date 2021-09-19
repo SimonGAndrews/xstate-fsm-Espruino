@@ -21,10 +21,31 @@ The goal of this software is to enable the advantages of a finite state machine 
 * is tested on a sample of low-end, connected, IOT microcontroller devices available today eg Esprunio and Espressif ESP32.  (noting that full XState Statechart Library is already enabled on the Raspberry Pi, running under Linux with Node.js)
 
 ## Implementation 
+xstate-fsm-Espruino can be run in Esprunio on a microcontroller board by installing it as an Espruino module on the board. The module code file, xstate-fsm.js  is available in this repository in the src folder.
 
-The software is available with the src directory here as JavaScript code already transpiled from the XState/fsm typescript source.   The src files are structures as an Esprunio formatted module.  
+See the link working with modules below for full details on working with modules in Esprunio.
 
-(**todo - details of using in a module**)
+In summary, to implement, assuming you are using the Espruino IDE and are connected to a board.  <https://www.espruino.com/Quick+Start+BLE#using-the-espruino-ide>
+
+Download the module code to your local machine from this repository. 
+<https://github.com/SimonGAndrews/xstate-fsm-Espruino/src/xstate-fsm.js>
+
+Within the IDE click the Device Storage Icon.
+
+![](./docs/Espruino_storage.png)
+
+in the file open pop-up, navigate to the local copy of xstate-fsm.js.  Click open.  Then in the 'Upload A file' pop-up enter the filename as xstate-fsm  (WITHOUT any extension).
+![](./docs/Espruino_upload.png)
+
+Click OK, the IDE will upload the file to the board, and it will be available in the boards non-volatile storage as an Espruino module.
+
+![](./docs/Espruino_xstate-fsm_inStorage.png).
+
+The module can then be accessed with require statements as below.
+
+![](./docs/Espruino_uploadMachine.png)
+
+(To Do - link to examples)
 
 ## References
 
