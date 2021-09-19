@@ -32,18 +32,18 @@ Download the module code to your local machine from this repository.
 
 Within the IDE click the Device Storage Icon.
 
-![](./docs/Espruino_storage.png)
+![](docs/Espruino_storage.png)
 
 in the file open pop-up, navigate to the local copy of xstate-fsm.js.  Click open.  Then in the 'Upload A file' pop-up enter the filename as xstate-fsm  (WITHOUT any extension).
-![](./docs/Espruino_upload.png)
+![](docs/Espruino_upload.png)
 
 Click OK, the IDE will upload the file to the board, and it will be available in the boards non-volatile storage as an Espruino module.
 
-![](./docs/Espruino_xstate-fsm_inStorage.png).
+![](docs/Espruino_xstate-fsm_inStorage.png).
 
 The module can then be accessed with require statements as below.
 
-![](./docs/Espruino_uploadMachine.png)
+![](docs/Espruino_uploadMachine.png)
 
 (To Do - link to examples)
 
