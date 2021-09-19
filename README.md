@@ -35,6 +35,7 @@ Within the IDE click the Device Storage Icon.
 ![](Docs/Espruino_storage.png)
 
 in the file open pop-up, navigate to the local copy of xstate-fsm.js.  Click open.  Then in the 'Upload A file' pop-up enter the filename as xstate-fsm  (WITHOUT any extension).
+
 ![](Docs/Espruino_upload.png)
 
 Click OK, the IDE will upload the file to the board, and it will be available in the boards non-volatile storage as an Espruino module.
