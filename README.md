@@ -27,7 +27,7 @@ See the link working with modules below for full details on working with modules
 
 In summary, to implement, assuming you are using the Espruino IDE and are connected to a board.  <https://www.espruino.com/Quick+Start+BLE#using-the-espruino-ide>
 
-Download the module code to your local machine from this repository. 
+Download the module code file xstate-fsm.js to your local machine from this repository. 
 <https://github.com/SimonGAndrews/xstate-fsm-Espruino/tree/main/src>
 
 Within the IDE click the Device Storage Icon.
