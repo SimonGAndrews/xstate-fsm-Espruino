@@ -45,6 +45,7 @@ const lightMachine = createMachine({
   }
 });
 
+// setup the machine interpreter
 const lightService = interpret(lightMachine);
 
 lightService.subscribe((state) => {
@@ -53,6 +54,7 @@ lightService.subscribe((state) => {
   console.log(' ');
 });
 
+// run the state machine (send three TIMER events)
 lightService.start();
 lightService.send('TIMER');
 lightService.send('TIMER');
