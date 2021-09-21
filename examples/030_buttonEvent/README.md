@@ -24,5 +24,5 @@ In the example,  the string that is executed on the input change is **'lightServ
 
 ## References
 
-* XState/fsm service.send:  <https://XState.js.org/docs/packages/XState-fsm/#service-send-event> 
+* XState/fsm service.send:  <https://xstate.js.org/docs/packages/xstate-fsm/#service-send-event>
 * Working with buttons in Espruino: <https://www.espruino.com/Button>
