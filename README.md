@@ -2,7 +2,10 @@
 
 This repro contains a fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the Espruino JavaScript Interpreter for Microcontrollers
 
-*( This repro is currently Work in Progress)*
+## (This repro is currently Work in Progress)
+
+The current status is that a working version has been deployed and is available as per the implementation notes below.
+Testing is continuing and examples are being created and published here within the examples folder.   Watch this space :)
 
 **This software should be considered as experimental.**  
 As such this software should be used for amusement only and specifically not be used for any mission critical or safety/health systems.    As per the license below this work is provided without warranty of any kind.  
@@ -20,7 +23,8 @@ The goal of this software is to enable the advantages of a finite state machine 
 * Optimises the overall system capabilities within the constraints of low-spec microcontroller devices available for IOT.  
 * is tested on a sample of low-end, connected, IOT microcontroller devices available today eg Esprunio and Espressif ESP32.  (noting that full XState Statechart Library is already enabled on the Raspberry Pi, running under Linux with Node.js)
 
-## Implementation 
+## Implementation
+
 xstate-fsm-Espruino can be run in Esprunio on a microcontroller board by installing it as an Espruino module on the board. The module code file, xstate-fsm.js  is available in this repository in the src folder.
 
 See the link working with modules below for full details on working with modules in Esprunio.
