@@ -16,7 +16,11 @@ The parameters of the setwatch() function are documented here
 
 In this case the function is passed the ID of the digital input pin to watch (the const buttonPin) and passed an options object that specifies to continually monitor (repeat) and to trigger the event on the rising edge of the signal change. 
 
-In the example,  the string that is executed on the input change is **'lightService.send("BUTTON")'**. send() is XState/fsm interpreter service function which sends a specified event to the interpreted machine. In this case the change triggers the sending of a BUTTON event, names as a string.  Note BUTTON is the arbitrary name of the event defined in the state machine configuration to trigger the state changes, that is the event could just as easily be named KEYPRESS within the machine config.
+In the example,  the string that is executed on the input change is **'lightService.send("BUTTON")'**. send() is XState/fsm interpreter service function which sends a specified event to the interpreted machine. In this case the change triggers the sending of a BUTTON event, named as a string.  Note BUTTON is the arbitrary name of the event defined in the state machine configuration to trigger the state changes, that is the event could just as easily be named KEYPRESS within the machine config.
+
+## Demo
+
+![](./buttonEvent.gif)
 
 ## References
 
