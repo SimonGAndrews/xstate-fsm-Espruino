@@ -2,7 +2,6 @@ const createMachine = require('xstate-fsm').createMachine;
 const interpret = require('xstate-fsm').interpret;
 const assign = require('xstate-fsm').assign;
 
-// define led connection pins and values
 const greenLed = 25;
 const yellowLed = 26;
 const redLed = 27;
@@ -11,33 +10,32 @@ const off = 0;
 
 const allOff = () => {for (let i= 25; i<28; i++ ) {digitalWrite(i,0);}};
 
-// define the state machine
 const lightMachine = createMachine({
   id: 'light',
   initial: 'green',
   context: { redLights: 0 },
   states: {
     green: {
-        entry: [ () => digitalWrite(greenLed,on)],
-        exit: [ () => digitalWrite(greenLed,off)],
+        entry: ['turnOnGreen'],
+        exit: ['turnOffGreen'],
       on: {
         TIMER: 'yellow'
       }
     },
     yellow: {
-        entry: [ () => digitalWrite(yellowLed,on)],
-        exit: [ () => digitalWrite(yellowLed,off)],
+        entry: ['turnOnYellow'],
+        exit: ['turnOffYellow'],
       on: {
         TIMER: {
           target: 'red',
-          actions: () => console.log('Going to red!')
+          actions: 'notifyRed',
         }
       }
     },
     red: {
         entry: [
           assign({ redLights: (ctx) => ctx.redLights + 1 }),
-          () => digitalWrite(redLed,on)
+          'turnRedOn',
         ],
         exit: [ allOff ],
       on: {
@@ -45,7 +43,19 @@ const lightMachine = createMachine({
       }
     }
   }
-});
+},
+{
+  actions: {
+    turnOnGreen: (context,event) => {digitalWrite(greenLed,on);},
+    turnOffGreen: (context,event) => {digitalWrite(greenLed,off);},
+    turnOnYellow: (context,event) => {digitalWrite(yellowLed,on);},
+    turnOffYellow: (context,event) => {digitalWrite(yellowLed,off);},
+    turnOnRed: (context,event) => {digitalWrite(redLed,on);},
+    turnOffRed: (context,event) => {digitalWrite(redLed,off);},
+    notifyRed: function() {console.log('Going to Red!');}
+  }
+}
+);
 
 // setup the machine interpreter
 const lightService = interpret(lightMachine);
