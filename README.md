@@ -1,10 +1,10 @@
 # xstate-fsm-Espruino
 
-This repro contains a fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the Espruino JavaScript Interpreter for Microcontrollers
+This repro contains a modified fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the Espruino JavaScript Interpreter for Microcontrollers
 
 ## (This repro is currently Work in Progress)
 
-The current status is that a working version has been deployed and is available as per the implementation notes below.
+The current status is that this is a working version and is available as per the implementation notes below.
 Testing is continuing and examples are being created and published here within the examples folder.   Watch this space :)
 
 **This software should be considered as experimental.**  
