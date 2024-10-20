@@ -1,3 +1,24 @@
+/*
+This code is modified version of the finite state machine (FSM), XState/fsm*, 
+with modifications necessary to run it as a module within the Espruino** JavaScript Interpreter for Microcontrollers
+Both XState and Esprunio are Open Source projects.
+
+** Esprunio is the product of Gordon Williams <https://en.wikipedia.org/wiki/Espruino>.  
+To support the Esprunio project please see: <https://www.espruino.com/Donate>
+
+* XState is the product of David Khourshid and the XState community.  
+To support the XState project please see: <https://opencollective.com/xstate>
+
+## License
+
+* XState/fsm is Copyright (c) 2015 David Khourshid and utilised here under its MIT license
+<https://github.com/statelyai/xstate/blob/main/packages/xstate-fsm/LICENSE>
+
+The modifications to Xstate/fsm provided here are Copyright (c) 2021 Simon Andrews 
+and are provided for use under MIT License. 
+<https://github.com/SimonGAndrews/xstate-fsm-Espruino/blob/main/LICENSE>
+*/
+
 var InterpreterStatus;
 (function (InterpreterStatus) {
     InterpreterStatus[InterpreterStatus["NotStarted"] = 0] = "NotStarted";
@@ -7,14 +28,12 @@ var InterpreterStatus;
 
 exports.InterpreterStatus = InterpreterStatus;
 
-// import { InterpreterStatus } from './types';
-// export { InterpreterStatus };
 const INIT_EVENT = { type: 'xstate.init' };
 const ASSIGN_ACTION = 'xstate.assign';
 function toArray(item) {
     return item === undefined ? [] : [].concat(item);
 }
-// export function assign(assignment) {
+
 exports.assign = function assign(assignment) {
     return {
         type: ASSIGN_ACTION,
@@ -80,7 +99,7 @@ function handleActions(actions, context, eventObject) {
     });
     return [nonAssignActions, nextContext, assigned];
 }
-// export function createMachine(fsmConfig, options = {}) {
+
 exports.createMachine = function createMachine(fsmConfig, options) {
     options = (typeof options !== 'undefined') ? options : {};
     if (!IS_PRODUCTION) {
@@ -91,7 +110,6 @@ exports.createMachine = function createMachine(fsmConfig, options) {
             }
         });
     }
-// const [initialActions, initialContext] = handleActions(toArray(fsmConfig.states[fsmConfig.initial].entry).map((action) => toActionObject(action, options.actions)), fsmConfig.context, INIT_EVENT);
     const initialProps = handleActions(toArray(fsmConfig.states[fsmConfig.initial].entry).map((action) => toActionObject(action, options.actions)) , fsmConfig.context, INIT_EVENT);
     const initialActions = initialProps[0];
     const initialContext = initialProps[1];
@@ -106,10 +124,7 @@ exports.createMachine = function createMachine(fsmConfig, options) {
             matches: createMatcher(fsmConfig.initial)
         },
         transition: (state, event) => {
-             var _a, _b;
-        //  const { value, context } = typeof state === 'string'
-        //        ? { value: state, context: fsmConfig.context }
-        //  : state;
+            var _a, _b;
             var _obj = typeof state === 'string' 
                 ? { value: state, context: fsmConfig.context }
                 : state;
@@ -127,7 +142,6 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                         return createUnchangedState(value, context);
                     }
                  
-                    // const { target, actions = [], cond = () => true } = typeof transition === 'string'         
                     var _transitionObject = typeof transition === 'string' ? { target: transition } : transition;
                     const target = _transitionObject.target;
                     const actions = _transitionObject.actions === undefined ?  [] : _transitionObject.actions ;
@@ -147,7 +161,6 @@ exports.createMachine = function createMachine(fsmConfig, options) {
                                 .concat(stateConfig.exit? stateConfig.exit : [], actions? actions:[], nextStateConfig.entry?nextStateConfig.entry:[])
                                 .filter((a) => a)).map((action) => toActionObject(action, machine._options.actions));
                         
-                         //const [nonAssignActions, nextContext, assigned] = handleActions(allActions, context, eventObject);
                         var _handleActions = handleActions(allActions, context, eventObject).slice(0,3);
                         nonAssignActions = _handleActions[0],
                         nextContext = _handleActions[1],
@@ -170,13 +183,12 @@ exports.createMachine = function createMachine(fsmConfig, options) {
     };
     return machine;
 }
-// const executeStateActions = (state, event) => state.actions.forEach(({ exec }) => exec && exec(state.context, event));
    const executeStateActions = (state, event) => {
        state.actions.forEach(( exec ) => {
            exec && Object.assign({},exec).exec(state.context, event);   
     });
     };
-// export function interpret(machine) {
+
 exports.interpret = function interpret(machine) {
     let state = machine.initialState;
     let status = InterpreterStatus.NotStarted;
