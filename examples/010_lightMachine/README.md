@@ -5,7 +5,7 @@ and then the use of the Interpreter service to initialise the machine and send t
 to demonstrate the machine changing states upon the event.
 
 The statechart of the machine woul look like this:
-![](./lightChart.PNG)
+![](./lightChart.png)
 
 The complete code for the example is <https://examples/010_lightMachine/lightMachine.js>
 
