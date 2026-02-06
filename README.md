@@ -1,13 +1,27 @@
 # xstate-fsm-Espruino
 
-This repro contains a modified fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the [Espruino JavaScript Interpreter for Microcontrollers](https://www.espruino.com/).  
+## Background
+This repo contains a modified fork of the finite state machine (FSM), XState/fsm, with modifications necessary to run it as a module within the [Espruino JavaScript Interpreter for Microcontrollers](https://www.espruino.com/).  
 Xstate/fsm is a minimal implementation of the Xstate finite state machine , 
 designed to run on resource limited devices (eg microcontrollers).  
-Note: Xstate/fsm is a package created in earlier versions of Xstate and maintained up to Xstate V4 (still an available branch*).  
-and was dropped from the main branch of Xstate in Xstate V5.  
 
-Xstate/fsm enables event-driven programming uisng  state machines which are configured with a javascript object model. V5 versions of Xstate have built up a complex actor model foundation (which is not implemented here).  All versions of Xstate are based upon 'statecharts' enabling nested state models to be defined.  This version of xstate/fsm does not implemented amnested version of statecharts but does enable single level charts to be implemented using a subset of the current Xstate functionality.  
+This project is based on the lightweight @xstate/fsm package as documented for XState v4.
+
+In XState v5, @xstate/fsm is deprecated in favour of the full XState actor model, but the
+v4 FSM semantics remain well-defined and suitable for constrained runtimes.
+
+This repository preserves and adapts those v4 FSM semantics for use on Espruino.
+
+Xstate/fsm enables event-driven programming using  state machines which are configured with a javascript object model. V5 versions of Xstate have built up a complex actor model foundation (which is not implemented here).  All versions of Xstate are based upon 'statecharts' enabling nested state models to be defined.  This version of xstate/fsm does not implemented flat version of statecharts but does enable single level charts to be implemented using a subset of the current Xstate functionality.  
 Below is an amended copy of the features table from Xstate/fsm that indicates what features are supported in this Espruino version.
+
+## Scope
+
+This repository implements the flat finite state machine (FSM) subset only.
+
+Features such as hierarchical (nested) states, parallel states, and history states are
+intentionally out of scope here and are explored separately in the umbrella project
+under FSMPlus (JavaScript) and XFSM (native C).
 
 |                             | [@XState/fsm](https://github.com/statelyai/xstate/blob/v4/docs/packages/xstate-fsm/index.md)| | |
 | --------------------------- | :-------------: | :----------------:  |:---------------------------------------------: |
@@ -32,7 +46,7 @@ Below is an amended copy of the features table from Xstate/fsm that indicates wh
 | Invoked actors              |       ❌        |    
 
 
-## (This repro is Work in Progress)
+## (This repo is Work in Progress)
 
 The current status is that this is a working version and is available as per the implementation notes below.
 Testing is continuing and examples are being created and published here within the examples folder.   Watch this space :)
@@ -42,7 +56,7 @@ As such this software should be used for amusement only and specifically not be 
 
 ## Goals
 
-The goal of this software, building on the desing concepts of bot Espruino and Xstate, is to enable the advantages of a finite state machine approach to be demonstrated for the programming of Internet of Things (IOT) microcontrollers.  In a way that:
+The goal of this software, building on the desing concepts of both Espruino and Xstate, is to enable the advantages of a finite state machine approach to be demonstrated for the programming of Internet of Things (IOT) microcontrollers.  In a way that:
 
 * Supports JavaScript as a scripting environment for the programming of IOT devices.
 * Enables the existing diverse Esprunio module device library of sensors, actuators and other interface components to be incorporated into IOT devices driven by a FSM.
@@ -76,7 +90,34 @@ The module can then be accessed with require statements as below.
 
 ![](Docs/images/Espruino_uploadMachine.png)
 
+
+## Quick Start
+
+var xfsm = require("xstate-fsm");
+
+var machine = xfsm.createMachine({
+  initial: "idle",
+  states: {
+    idle: { on: { START: "running" } },
+    running: { on: { STOP: "idle" } }
+  }
+});
+
+var service = xfsm.interpret(machine)
+  .onTransition(state => console.log(state.value))
+  .start();
+
+service.send("START");
+
+This example demonstrates the supported flat FSM model and mirrors the behaviour of
+@xstate/fsm v4 within Espruino constraints.
 See the examples for further assistance in https://github.com/SimonGAndrews/xstate-fsm-Espruino/tree/main/examples
+
+## Relationship to Other Work
+
+This repository is used as a Stage 1 baseline within the
+XState-Espruino-Project umbrella repository, where hierarchical FSM support
+(FSMPlus) and a native C engine (XFSM) are developed and evaluated.
 
 ## References
 
